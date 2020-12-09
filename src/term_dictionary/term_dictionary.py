@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 from collections import defaultdict
-from distance_functions import levenshtein_distance
+from distance_functions import levenshtein_distance, truncated_jaccard_dist
 
 class TermDictionary(object):
     """ 
@@ -109,7 +109,7 @@ class TermDictionary(object):
         suggested_terms = set(suggested_terms)
         candidate_words = [ (self.terms_dict.get(term), levenshtein_distance(term, norm_word)) 
                              for term in suggested_terms ]
-        candidate_words.sort(key=lambda x: (x[1], x[0]))
+        candidate_words.sort(key=lambda x: (truncated_jaccard_dist(x[0], word), x[1]))
         return candidate_words
 
 

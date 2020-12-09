@@ -46,6 +46,27 @@ def jaccard_distance(w1, w2):
     return dist
 
 
+def truncated_jaccard_dist(w1, w2):
+    n1 = len(w1)
+    n2 = len(w2)
+    n = min(n1, n2)
+    intersection = list()
+    union = list()
+
+    if n == 0:
+        return 1
+
+    for i in range(n):
+        if w1[i] == w2[i]:
+            intersection.append(w1[i])
+            union.append(w1[i])
+        else:
+            union.append(w1[i])
+            union.append(w2[i])
+
+    dist = 1 - len(intersection)/len(union)
+    return dist
+
 def common_characters(w1, w2):
     """
     Parameters:
